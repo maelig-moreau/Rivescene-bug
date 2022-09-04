@@ -2,6 +2,9 @@ function init(self)
 	msg.post("/cam", "acquire_camera_focus")
 	msg.post(".", "acquire_input_focus")
 	moving = false
+
+	local bone = rive.get_go("#rivemodel", "bone")
+	msg.post("/linked_to_bone", "set_parent", { parent_id = bone })
 end
 
 function final(self)
