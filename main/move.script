@@ -1,0 +1,53 @@
+function init(self)
+	msg.post("/cam", "acquire_camera_focus")
+	msg.post(".", "acquire_input_focus")
+	moving = false
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	if moving then
+		local pos = go.get_position()
+		pos.x = pos.x + 20
+		go.set_position(pos)
+	end
+
+	local campos = go.get_position()
+	campos.x = campos.x -100
+	campos.y = campos.y -100
+	go.set_position(campos,"/cam")
+end
+
+function fixed_update(self, dt)
+	-- Add update code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	-- Add message-handling code here
+	-- Learn more: https://defold.com/manuals/message-passing/
+	-- Remove this function if not needed
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("touch") and action.pressed then
+		if moving then
+			moving = false
+			go.set_position(vmath.vector3(50,100,0))
+		else
+			moving = true
+		end
+	end
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Learn more: https://defold.com/manuals/hot-reload/
+	-- Remove this function if not needed
+end
